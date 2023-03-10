@@ -15,7 +15,10 @@ def _syspend(file_name:str, relative_path:str, p, mode):
             return str(p/relative_path)
     else:
         if p == p.parent:
-            sys.exit(f'[ERROR]: {file_name} File Not Found. [syspend]')
+            sys.exit(
+                f'[ERROR]: {file_name} File Not Found.\r\n'
+                '          This message from syspend package.'    
+            )
         else:
             _syspend(file_name, relative_path, p.parent, mode)
 

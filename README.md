@@ -2,16 +2,14 @@
 
 syspend recursively searches the parent directory and executes sys.path.append on the path where the SYSPEND_ROOT file exists.
 
-
-
 project/
     ├── packages/
     │   ├── __init__.py
     │   ├── package1.py
     │   └── package2.py
-    └── samples/
-        └── sample1.py
-
+    ├── samples/
+    │   └── sample1.py
+    └── SYSPEND_ROOT
 
 ## Installation
 
