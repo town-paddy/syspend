@@ -2,28 +2,27 @@ import sys
 import pathlib
 
 def syspend(file_name:str='SYSPEND_ROOT', relative_path:str='./'):
-    _syspend(file_name, relative_path, pathlib.Path().absolute(), 'add')
+    _syspend(file_name, relative_path, pathlib.Path().resolve(), 'add')
 
 def get_path(file_name:str='SYSPEND_ROOT', relative_path:str='./'):
-    return _syspend(file_name, relative_path, pathlib.Path().absolute(), 'get')
+    return _syspend(file_name, relative_path, pathlib.Path().resolve(), 'get')
 
 def _syspend(file_name:str, relative_path:str, p, mode):
     if (p/file_name).exists():
+        path = (p/relative_path).resolve()
         if mode == 'add':
-            sys.path.append(str(p/relative_path))
+            sys.path.append(path)
         elif mode == 'get':
-            return str(p/relative_path)
+            return str(path)
     else:
         if p == p.parent:
-            sys.exit(
-                f'[ERROR]: {file_name} File Not Found.\r\n'
-                '          This message from syspend package.'    
-            )
+            sys.exit(f'syspend package error: {file_name} File Not Found.\r\n')
         else:
-            _syspend(file_name, relative_path, p.parent, mode)
+            return _syspend(file_name, relative_path, p.parent, mode)
 
-# syspend を import したと同時に SYSPEND_ROOT があるフォルダを sys.append します。
+# soon after calling import syspend, executes syspend method.
 syspend()
 
 if __name__ == "__main__":
     print(get_path())
+    print(get_path('SYSPEND_ROOT', '../tools'))
